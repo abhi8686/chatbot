@@ -1,0 +1,92 @@
+<div class="panel panel-default" id="post_<%= status.id %>">
+  <div class="panel-body" >
+    <div id="status_edit-<%= status.id %>" style="display:none;"></div>
+          <div class="row">
+            <div class="col-md-3 col-xl-1">
+               <%= avatar_profile_link status.user, "thumb", class: 'img-avatar' %>
+            </div>
+            <div class="col-md-4">
+              <p style="font-size:14px; color:#232323"><b> <%= status.user.full_name %></b></p>
+              <p id="statlink" style="font-size:12px; color:#909090"><b> <%= link_to time_ago_in_words(status.created_at) + " ago", status %></b></p>
+            </div>
+            <div class="col-md-3 col-xl-1">
+               <%= avatar_profile_link status.user, "thumb", class: 'img-avatar' %>
+            </div>
+            <div class="col-lg-1 options">
+                <div class="btn-group status-options">
+                  <% if current_user && status.user == current_user %>
+                  <%= render partial: 'statuses/options', locals: { status: status } %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <br>
+          <div class="row">
+           
+            <p style="font-size:13px; color:#3e3e3e; padding-left:20px; padding-right:20px;"><b><%= status.content %></b></p>
+            <% if status.image_file_name != nil %>
+              <%= image_tag status.image.url(:thumb) %>
+            <% end %>
+            <% if status.video_file_name != nil %>
+              <%= video_tag status.video.url(:medium), controls: true, style: "max-width: 100%;", size: "455x300"%>
+            <% end %>
+         </div>
+
+          <div class="row">
+            <div class="col-md-6 pull-left">           
+              <% if status.get_upvotes.size == 0 %>  
+                <% @users.each do |user| %>
+                  <% if user == status.user%>
+                    <%= link_to like_status_path(status), remote: true, method: :put, class: 'vpos'   do %>
+                     <p style="font-size:15px; color:#9e9e9e;"><span class="button-<%= status.id %>"><i class="fa fa-heart-o "></i></span>
+                      <span class="vcount-<%= status.id %>"><%= status.get_upvotes.size %> likes</span>
+                     </p>
+                    <% end %>
+                  <% end %>
+                <% end %>
+                <% if current_user == status.user %>
+                  <%= link_to like_status_path(status), remote: true, method: :put, class: 'vpos'   do %>
+                     <p style="font-size:15px; color:#9e9e9e;"><span class="button-<%= status.id %>"><i class="fa fa-heart-o "></i></span>
+                      <span class="vcount-<%= status.id %>"><%= status.get_upvotes.size %> likes</span>
+                     </p>
+                    <% end %>
+                <% end %>
+
+              <% else %> 
+                <% @users.each do |user| %>
+                  <% if user == status.user%>
+                     <%= link_to like_status_path(status), remote: true, method: :put, class: 'vpos'   do %>
+                     <p style="font-size:15px; color:#9e9e9e;"><span class="button-<%= status.id %>"><i class="fa fa-heart-o blackiconcolor"></i></span>
+                      <span class="vcount-<%= status.id %>"><%= status.get_upvotes.size %> likes</span>
+                     </p>
+                     <% end %>
+                  <% end %>
+                <% end %>
+                <% if current_user == status.user %>
+                    <%= link_to like_status_path(status), remote: true, method: :put, class: 'vpos'   do %>
+                     <p style="font-size:15px; color:#9e9e9e;"><span class="button-<%= status.id %>"><i class="fa fa-heart-o blackiconcolor"></i></span>
+                      <span class="vcount-<%= status.id %>"><%= status.get_upvotes.size %> likes</span>
+                     </p>
+                     <% end %>
+                <% end %>
+
+              <% end %>
+            </div>
+          </div>     
+          </div>
+        <div class="panel-footer">
+          <% @users.each do |user| %>
+            <% if user == status.user%>
+              <%= render :partial => 'comments/index', object: status, as: "status" %>
+            <% end %>
+          <% end %>
+          <% if current_user == status.user %>
+            <%= render :partial => 'comments/index', object: status, as: "status" %>
+          <% end %>
+        </div>
+</div>
+ <% if status.user_id == current_user.id %>
+<%= subscribe_to status_path(status) %>
+<% end %>
+
+<%= subscribe_to user_friendships_path(@user_friendships) %>

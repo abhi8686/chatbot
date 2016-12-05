@@ -1,0 +1,20 @@
+<div style="height: 400px; overflow-y: auto;">
+      <% if not(@user_friendships.nil?) %>
+          <ul class="media-list">
+            <% @user_friendships.each do |friendship| %>
+            <% friend = friendship.friend %>
+                
+                <% if friendship.requested? %>
+                <%= avatar_profile_link friend, "thumb",class: 'img-avatar' %>
+                <%= link_to profile_path(friend) do %>
+	                <h7 class="media-heading"><%= friend.full_name %></h7>
+			      	<em>Friendship requested.</em>
+			    <% end %>
+			    <% end %>
+
+            <% end %>
+          </ul>
+      <% else %>
+          <p>You have no conversations. Click send message with any user to create one.</p>
+      <% end %>   
+</div>

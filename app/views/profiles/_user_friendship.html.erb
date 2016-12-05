@@ -1,0 +1,16 @@
+<div class="row">
+<% unless @user.profile_name == 'hibot' %>
+  <% if @user.pending_friends.include?(current_user) %>
+  	<div class="col-md-6">
+  		<%= form_for @user, url: accept_user_friendship_path(@user), method: :put do |form| %>
+  		<%= submit_tag "Accept Friendship", class: 'btn btn-primary' %>
+  		<% end %>
+  	</div>
+  <% end %>
+  <div class="col-md-6">
+  	<%= form_for @user, url: user_friendship_path(@user), method: :delete do |form| %>
+  		<%= submit_tag "Delete Friendship", class: 'btn btn-danger' %>
+  	<% end %>
+</div>
+<% end %>
+</div>

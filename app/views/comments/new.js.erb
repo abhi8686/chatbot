@@ -1,0 +1,7 @@
+$('#comment-form-<%= @status.id %>').html("<%= j (render 'comment_form') %>");
+$('#canceller').click(function (e) {
+  e.preventDefault();
+  $('#comment-form-<%= @status.id %>').slideUp(350);
+  $('#comment-form-<%= @status.id %>').html("");
+});
+$('#comment-form-<%= @status.id %>').slideDown(350);

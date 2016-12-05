@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-2">
+      <%= render 'statuses/profile_info' %>
+    </div>
+
+    <div class="col-md-5" style="margin-top:40px;">
+    	<div class="row">	  
+	    	<% if signed_in? %>
+				
+				  <%= render 'count_profile'%>
+				
+				   
+					  <%if @user.a_brief_about_yourself != nil %>
+					   		<p style="font-size:15px;  text-align: justify;"> <%= @user.a_brief_about_yourself.body %> </p>
+					   		<br>
+					   <% end %>
+					
+					<div class="col-md-8">
+					  <% if current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) || @user.pending_friends.include?(current_user)%>		  		
+
+					  <%= render 'user_friendship'%>
+					
+
+					  <% elsif current_user != @user %> 
+					  	
+						<%= link_to new_user_friendship_path(friend_id: @user), class: 'btn btn-info dropdown-toggle', id: 'add-friendship', data: { friend_id: @user.to_param } do %>
+						    <i class="fa fa-user-plus"></i> Add as Friend 
+						   <% end %>				
+					  <% end %>
+				  </div>
+
+
+				  <div class="col-md-4">
+				  	<%= render 'users/follow_form' %>
+				  </div>
+				 
+			<% end %>
+		</div>
+		<br>
+
+		<div class="row">	  
+     		<%= render @statuses%>
+     	</div>
+    </div>
+
+  <div class="col-md-2">
+  </div>
+
+  <div class="col-md-3">
+      <%= render 'statuses/contacts' %>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div style="height: 400px; overflow-y: auto;">
+      <% if not(statuses.nil?) %>
+          <ul class="media-list">
+            <% statuses.each do |status| %>
+                
+                <% if not (status.comments.last.nil?) %>
+
+	                <% if status.comments.last.user.id != status.user_id%>
+
+		                <li class="media">
+		                <%= avatar_profile_link status.comments.last.user, "thumb", class: "img-avatar-noti" %>
+		                  <div class="col-md-8"> 
+		 
+		                        <p style="font-size:14px; color:#232323"><%= status.comments.last.user.full_name %> commented on your post: <%= status.content %></p>
+		                        <p style="font-size:14px; color:#232323"><%= status.comments.last.nil? ? "No messages" : truncate(status.comments.last.body, length: 45) %></p>
+		                     
+		                  </div>
+		                </li>
+		            <% else %>
+			            <% if not status.comments.non_owner_comments(status.id).empty? %>
+				            <li class="media">
+				            	<%= avatar_profile_link status.comments.non_owner_comments(status.id).last.user, "thumb", class: "img-avatar-noti" %>
+				                  <div class="media-body">
+				                   
+				                        <p style="font-size:14px; color:#232323"><%= status.comments.non_owner_comments(status.id).last.user.full_name %> commented on your post: <%= status.content %></p>
+				                        <p style="font-size:14px; color:#232323"><%= status.comments.last.nil? ? "No messages" : truncate(status.comments.non_owner_comments(status.id).last.body, length: 45) %></p>
+				                     
+				                  </div>
+				                </li>
+				        <% end %>
+		            <% end %>
+
+                <% end %>
+
+
+                <% if not (status.get_upvotes.last.nil?) %>
+	                <% if status.get_upvotes.last.voter.id != status.user_id %>
+
+		            	<li class="media">
+		            	  <%= avatar_profile_link status.get_upvotes.last.voter, "thumb", class: "img-avatar-noti" %>
+		                  <div class="col-md-8"> 
+		                   
+		                        <p style="font-size:14px; color:#232323"><%= status.get_upvotes.last.voter.full_name %></b> like your post: <%= status.content %></p>
+		                      
+		                  </div>
+		                </li>
+		                
+		            <% end %>
+	            <% end %>
+
+            <% end %>
+          </ul>
+          <div>
+            <center> <%= link_to "View all", notifications_path, class: "btn btn-info dropdown-toggle"%> </center>
+          </div>
+      <% else %>
+          <p>You have no conversations. Click send message with any user to create one.</p>
+      <% end %>   
+
+</div>

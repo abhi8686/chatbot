@@ -1,0 +1,10 @@
+$('.vpos').bind('ajax:success', function() {
+$('.vcount-<%= @status.id %>').html('<%= escape_javascript @status.get_upvotes.size.to_s %> likes');
+$('.button-<%= @status.id %>').addClass( "blackiconcolor" );
+<% publish_to @path do %>
+	<% if @status.get_upvotes.last.voter.id != @status.user_id %>
+		$('#icon-noti').addClass('new');
+	<% end %>
+<% end %>
+
+});

@@ -1,0 +1,35 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
+
+                    <div class="input-group margin-bottom-sm">
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                        <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Email address" %>
+                    </div>
+                    <br />
+                    <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                            <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: "Password" %>
+                    </div>
+               
+                    <br />
+                    <div class="actions">
+                      <%= f.button "Log in", class: 'btn btn-success btn-block', data: { disable_with: "<i class='fa fa-spinner fa-pulse'></i> Logging in..." } %>
+                    </div>
+                    <br />
+                      <div class="division">
+                        <div class="line l"></div>
+                          <span> or </span>
+                        <div class="line r"></div>
+                      </div>
+
+                     <div class="social">
+                        <a class="circle linkedin" href="<%= user_omniauth_authorize_path(:linkedin) %>">
+                          <i class="fa fa-linkedin fa-fw"></i>
+                        </a>
+                        <a class="circle twitter" href="<%= user_omniauth_authorize_path(:twitter) %>">
+                          <i class="fa fa-twitter fa-fw"></i>
+                        </a>
+                      <a class="circle facebook" href="<%= user_omniauth_authorize_path(:facebook) %>">
+                          <i class="fa fa-facebook fa-fw"></i>
+                        </a>
+                      </div>
+<% end %>  

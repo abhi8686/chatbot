@@ -1,0 +1,10 @@
+<div id="chatstrip">
+	<% if not @users.empty? %>
+		<% @users.each do |user| %>
+			<%= avatar_profile_link user, "thumb", class: "img-circle btn-xs start-conversation",
+		            "data-sid" => current_user.id, "data-rip" => user.id %>
+		<% end %>
+	<% else %>
+		<p class="white">You do not have friends yet</p>
+	<% end %>
+</div>

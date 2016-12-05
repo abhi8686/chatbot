@@ -1,0 +1,7 @@
+$('#status_edit-<%= @status.id %>').html("<%= j (render 'form') %> ");
+$('#canceller').click(function (e) {
+  e.preventDefault();
+  $('#status_edit-<%= @status.id %>').slideUp(350);
+  $('#status_edit-<%= @status.id %>').html("");
+});
+$('#status_edit-<%= @status.id %>').slideDown(350);

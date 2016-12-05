@@ -1,0 +1,27 @@
+<%= form_for(@a_brief_about_yourself) do |f| %>
+  <% if @a_brief_about_yourself.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@a_brief_about_yourself.errors.count, "error") %> prohibited this a_brief_about_yourself from being saved:</h2>
+
+      <ul>
+      <% @a_brief_about_yourself.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h4>A brief about yourself</h4>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-6"> <%= f.text_area :body, class: 'form-control', style: "width: 213%; height: 120px;", placeholder: "A Brief About Yourself"%>
+    </div>
+  </div> 
+
+ <br>
+  <div class="actions">
+    <%= button_tag(type: "submit", class: "btn btn-info dropdown-toggle") do %>
+    Save Details  
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1>My Friends</h1>
+</div>
+
+<% @user_friendships.each do |friendship| %>
+  <% friend = friendship.friend %>
+  <div id="<%= dom_id(friendship) %>" class="media friend">
+  	<div class="span1">
+  	 <%= avatar_profile_link friend, "thumb", class: 'img-avatar' %>
+  	</div>
+    
+    <div class="span7">
+      <strong><%= friend.full_name %></strong><br /> 
+      <% if friendship.pending? %>
+      	 <em>Friendship is pending.</em>
+      	 
+      <% end %> 
+      <% if friendship.requested? %>
+      	 <em>Friendship requested.</em>
+      	 
+      <% end %>
+      <% if friendship.accepted? %>
+      	 <em>Friendship started <%= friendship.updated_at %></em>
+      	 
+      <% end %>  
+      
+    </div>
+  </div>
+<% end %>
+

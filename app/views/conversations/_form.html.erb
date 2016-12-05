@@ -1,0 +1,30 @@
+<div style="height: 400px; overflow-y: auto;">
+      <% if not(@conversations.nil?) and @conversations.any? %>
+          <ul class="media-list">
+            <% @conversations.each do |conversation| %>
+                <% 
+                  if conversation.sender_id == current_user.id
+                    sender = User.find conversation.recipient_id
+                  else 
+                    sender = User.find conversation.sender_id
+                  end
+                %>
+                <li class="media">
+                  <%= avatar_profile_link sender, "thumb",class: "img-avatar-noti btn-xs start-conversation" %>
+                  <div class="media-body">
+                    <%= link_to conversation_path(conversation), class: "conversation", "data-cid" => conversation.id do %>
+                        <p style="font-size:14px; color:#232323"><%= conversation_interlocutor(conversation).full_name %></p>
+                        <p style="font-size:14px; color:#232323"><%= conversation.messages.last.nil? ? "No messages" : truncate(conversation.messages.last.body, length: 45) %></p>
+                    <% end %>
+                  </div>
+                </li>
+
+            <% end %>
+          </ul>
+          <div >
+            <center><%= link_to "View all",  messages_path , class: "btn btn-info dropdown-toggle"%></center>
+          </div>
+      <% else %>
+          <p>You have no conversations. Click send message with any user to create one.</p>
+      <% end %>   
+</div>

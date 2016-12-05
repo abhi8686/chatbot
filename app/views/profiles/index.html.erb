@@ -1,0 +1,7 @@
+<h2 style="center"> USERS </h2>
+
+
+<% @users.each do |user| %>
+	          <%= avatar_profile_link user, "thumb", class: 'img-circle' %>
+	          <%= user.profile_name %>
+	<% end %>

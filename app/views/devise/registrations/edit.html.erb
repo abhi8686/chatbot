@@ -1,0 +1,127 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-horizontal', method: :put }) do |f| %>
+
+<div class="col-lg-6">
+  <div class="well bs-component">
+
+    <fieldset>
+      <legend>Edit Account</legend>
+
+       <div class="form-group">
+        <%= f.label :first_name, "First Name", class: 'col-lg-2 control-label' %>
+        <div class="col-lg-10">
+          <%= f.text_field :first_name, autofocus: true, class: 'form-control' %>
+        </div>
+      </div>
+
+       <div class="form-group">
+        <%= f.label :last_name, "Last Name", class: 'col-lg-2 control-label' %>
+        <div class="col-lg-10">
+          <%= f.text_field :last_name, autofocus: true, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :profile_name, "Profile Name", class: 'col-lg-2 control-label' %>
+        <div class="col-lg-10">
+          <%= f.text_field :profile_name, autofocus: true, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, "Email", class: 'col-lg-2 control-label' %>
+        <div class="col-lg-10">
+          <%= f.email_field :email, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, class: 'col-lg-2 control-label' %>
+        <div class="col-lg-10">
+          <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+          <span class="help-block">leave blank if you don't want to change it</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Confirm password", class: 'col-lg-2 control-label long-label' %>
+        <div class="col-lg-10">
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+        </div>
+      </div>
+
+      <legend>Profile image (optional)</legend>
+
+      <div class="form-group">
+        <%= f.label :avatar, "Attach image", class: 'col-lg-2 control-label long-label' %>
+        <div class="col-lg-10">
+          <%= f.file_field :avatar, class: "image-upload" %>
+        </div>
+      </div>
+
+      <% if resource.avatar? %>
+        <div class="form-group">
+          <label class="col-lg-2 control-label"> Current image</label>
+          <div class="col-lg-10">
+            <%= avatar_profile_link resource, "thumb", class: 'img-avatar' %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.button "Update", class: 'btn btn-primary btn-lg btn-block', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Updating..." } %>
+      </div>
+    </fieldset>
+    <% end %>
+  </div>
+</div>
+
+<div class="col-lg-6">
+  <div class="panel panel-default ">
+    <div class="panel-body">
+      <h3><center>Facebook Integration</center></h3>
+        <% if Identity.identity_facebook(current_user.id, "facebook").empty?%>
+          <div class="social">
+            <a class="circle facebook" href="<%= user_omniauth_authorize_path(:facebook) %>">
+              <i class="fa fa-facebook fa-fw"></i>
+            </a>
+          </div>
+        <%else %>
+          <center>
+            <div data-user-id ="<%= current_user.id %>" class="btn-group btn-toggle">
+              <% if current_user.state_facebook == true %>
+                <button class="btn btn-sm btn-info">ON</button>
+                <button class="btn btn-sm btn-default active">OFF</button>
+              <% else %>
+                <button class="btn btn-sm btn-default">ON</button>
+                <button class="btn btn-sm btn-info active">OFF</button>
+              <% end %>
+            </div>
+          </center>    
+        <% end %>
+
+       <h3><center>Twitter Integration</center></h3>
+       <% if Identity.identity_twitter(current_user.id, "twitter").empty? %>
+           <div class="social">
+            <a class="circle twitter" href="<%= user_omniauth_authorize_path(:twitter) %>">
+              <i class="fa fa-twitter fa-fw"></i>
+            </a>
+          </div>
+        <% else %>
+          <center>
+            <div data-user-id ="<%= current_user.id %>" class="btn-group btn-toggle2">
+              <% if current_user.state_twitter == true %>
+                <br>
+                
+                <button class="btn btn-sm btn-info">ON</button>
+                <button class="btn btn-sm btn-default active">OFF</button>
+              <% else %>
+                <button class="btn btn-sm btn-default">ON</button>
+                <button class="btn btn-sm btn-info active">OFF</button>
+              <% end %>
+            </div>
+          </center>
+
+        <% end %>
+    </div>
+  </div>
+</div>

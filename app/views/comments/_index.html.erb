@@ -1,0 +1,25 @@
+<div class="comments-old-<%= status.id %>">
+	<% if status.comments.count > 0 %>
+		<div id="comments">
+	    	<a aria-expanded="true" href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= status.comments.count %> comments <b class="caret"></b></a>
+	    </div>
+	                  
+	    <%= render partial: 'comments/comment', collection: status.comments, as: "comment" %>
+	             
+	    <br>
+	    <div id="add_comment">
+		    <%= link_to new_status_comment_path(status), remote: true do %>
+		        <p style="font-size:13px; color:#9e9e9e"><i class="fa fa-plus"></i> Add a comment... </p>
+		    <% end %>
+		</div>
+	<% else %>
+	    <div id="first_comment">
+	       	<%= link_to new_status_comment_path(status), remote: true do %>
+	            <p style="font-size:13px; color:#9e9e9e"><i class="fa fa-plus"></i> Be the first one to comment </p>
+	        <% end %>
+	    </div>
+           
+	<% end %>
+</div>
+<div id="comment-form-<%= status.id %>" style="display:none;"></div>
+

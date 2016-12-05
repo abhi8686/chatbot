@@ -1,0 +1,12 @@
+<%= form_for [@status, @status.comments.new], remote: true do |f| %>
+<div class="form-group">
+    <%= f.text_field :body, autofocus: true, class: 'form-control', placeholder: "new comment" %>
+</div>
+
+ <div class="submitter">
+    <%= f.button "Comment", class: 'btn btn-info dropdown-toggle', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Commenting..." } %>
+
+    <a href="#" class='btn btn-warning' id="canceller">Cancel</a>
+  </div>
+
+<% end %>

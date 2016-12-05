@@ -1,0 +1,34 @@
+<%= form_for(@status, html: {multipart: true}) do |f| %>
+  <% if @status.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@status.errors.count, "error") %> prohibited this status from being saved:</h2>
+
+      <ul>
+      <% @status.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+     <div class="box-post">
+      <div class="media-left media-top">
+      </div>
+      <div class="media-body">
+         <div class="form-group">
+          <%= f.text_area :content , class: 'form-text-area', row: "2", placeholder: "Start posting here..." %>
+         </div>
+      </div>
+    </div>
+
+    <%= f.file_field :video , title: "Add New Video"%>
+  
+    <div class="pull-right"> 
+      <%= button_tag(type: "submit", name: nil, class: "btn btn-primary dropdown-toggle" , data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } ) do %>
+            <strong>Post</strong>
+        <% end %>
+    </div>
+
+    
+
+<% end %>

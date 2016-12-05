@@ -1,0 +1,9 @@
+<% if @status.comments.count > 0 %>
+	<%= link_to new_status_comment_path(@status), :remote => true, :id => "new_comment-#{status.id}" do %>
+    <p style="font-size:13px; color:#9e9e9e"><i class="fa fa-plus"></i> Add a comment... </p>
+    <% end %>
+<% else %>
+    <%= link_to new_status_comment_path(@status), :remote => true, :id => "new_comment-#{status.id}" do %>
+    <p style="font-size:13px; color:#9e9e9e"><i class="fa fa-plus"></i> Be the first one to comment</p>
+    <% end %>
+<% end %>

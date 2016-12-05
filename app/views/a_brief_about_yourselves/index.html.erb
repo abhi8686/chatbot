@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing A Brief About Yourselves</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @a_brief_about_yourselves.each do |a_brief_about_yourself| %>
+      <tr>
+        <td><%= a_brief_about_yourself.body %></td>
+        <td><%= link_to 'Show', a_brief_about_yourself %></td>
+        <td><%= link_to 'Edit', edit_a_brief_about_yourself_path(a_brief_about_yourself) %></td>
+        <td><%= link_to 'Destroy', a_brief_about_yourself, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New A brief about yourself', new_a_brief_about_yourself_path %>

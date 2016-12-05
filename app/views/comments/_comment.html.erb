@@ -1,0 +1,14 @@
+<%= div_for comment do %>
+
+ <div class="row">
+    <div class="col-md-2"> <%= avatar_profile_link comment.user, "thumb", class: 'img-comment' %> 
+    </div>
+
+    <div class="col-md-10"> 
+      <p style="font-size:14px; color:#232323"><b> <%= comment.user.profile_name %></b> - <%= comment.body %></p><p style="font-size:13px; color:#9e9e9e;"> <%= comment.created_at.strftime('%H:%M:%S') %> </p>
+    </div>
+<hr>
+    <!--div class="col-md-1"> <p style="font-size:15px; color:#9e9e9e;"> <%= comment.created_at.strftime('%H:%M:%S') %> </p>
+    </div-->
+</div>
+<% end %>

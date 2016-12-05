@@ -1,0 +1,11 @@
+<div class="col-md-1 col-xl-1" style="margin-left:1px; margin-top: 20px;" >
+          <%= avatar_profile_link @user, "thumb", class: 'img-circle'%>
+
+</div>
+<div class="profinfo">
+        <p style="font-size:14px; color:#232323"><b><%= @user.full_name.upcase %></b></p>
+        <p style="font-size:13px; color:#9f9f9f"> </p>
+        <% if current_user.id == @user.id %>
+        	<p style="font-size:13px; color:#cfcfcf"><%= link_to "Edit Profile", edit_profile_path(@user) %></p>
+    	<% end %>
+</div>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HIBOT</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application','http://localhost:9292/faye.js', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+  <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container container-fluid">
+        <div class="navbar-header">
+          <%= link_to 'Hibot', statuses_path, class: "navbar-brand" %>
+        </div>      
+
+        <div id="navbar" class="navbar-collapse collapse">
+          
+         
+
+            <% if user_signed_in?%>
+              <form class="navbar-form navbar-left" action='/profiles/users' >
+              <%= form_tag profiles_users_path, method: :get do %>
+                <div class="form-group">
+                  <%= text_field_tag :query, params[:query], class: 'form-control', placeholder: "Search..."%> 
+                </div>
+                <%= button_tag(type: "submit", name: nil, class: "btn btn-info dropdown-toggle") do %>
+                      <span class="glyphicon glyphicon-search"></span>
+                    <% end %>
+                <% end %>
+              </form>  
+            
+              <ul class="nav navbar-nav navbar-right">
+                
+                <li class="dropdown"> 
+                <a aria-expanded="true" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users fa-lg" id="icon-friend"></i></a>
+                <div class="dropdown-menu" id="menu">
+                  <%= render 'user_friendships/form' %>
+                  </div>
+                </li>
+
+                <li class="dropdown"> 
+                <a aria-expanded="true" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope fa-lg" id="icon-message"></i></a>
+                <div class="dropdown-menu" id="menu1">
+                  <%= render 'conversations/form' %>
+                  </div>
+                </li>
+
+                </li>
+                <li class="dropdown"> 
+                  <a aria-expanded="true" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe fa-lg" id="icon-noti"></i></i></a>
+                  <div class="dropdown-menu" id="menu2">
+                    <%= render 'notifications/form' %>
+                      <div>
+                        <center> <%= link_to "View all", notifications_path, class: "btn btn-info dropdown-toggle"%> </center>
+                      </div>
+                    </div>
+                </li>
+                
+                 <li>
+                  <%= link_to "Feed", feeds_path %>       
+                </li>
+                <li>
+                  <%= link_to "Profile", profile_path(current_user)%>     
+                </li>
+
+                <li class="dropdown">
+                  <a aria-expanded="true" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i> <%= current_user.full_name %> <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to edit_user_registration_path do %>
+                      <i class="fa fa-gear"></i> Settings
+                      <% end %>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <%= link_to logout_path, method: :delete do %>
+                      <i class="fa fa-sign-out"></i> Log Out
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+                </ul>
+            <% else %>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Help</a></li>
+
+              <li class="dropdown">
+                <a aria-expanded="true" class="dropdown-toggle" data-toggle="dropdown">SIGN UP<b class="caret"></b></a>
+                  <div class="dropdown-menu" id="menu">
+                      <%= render 'shared/register'%>
+                  </div>
+              </li>
+
+              <li class="dropdown">
+                <a aria-expanded="true" class="dropdown-toggle" data-toggle="dropdown"> SIGN IN <b class="caret"></b></a>
+                  <div class="dropdown-menu" id="menu"> 
+                    <%= render 'shared/login'%>   
+                  </div>
+              </li> 
+              </ul>
+            <% end %>
+
+         
+        </div>
+      </div>
+</nav>
+
+ <div class="container main-container" style="padding-top: 7%; padding-bottom: 3%;"> 
+  <% flash.each do |type, message| %>
+    <div class="alert <%= flash_class(type.to_s) %>">
+        <button class="close" data-dismiss="alert"> x </button>
+        <%= message %>
+    </div>
+<% end %>
+
+  <%= yield %>
+</div>      
+<!-- <audio id="chatAudio"><source src="/sounds/notification.mp3" type="audio/mpeg"></audio> -->
+<div id="footer">
+    <p style="text-align:center; color: #fff;"> &copy; All Rights Reserved Hibot </p>
+</div>
+ </body>
+</html>

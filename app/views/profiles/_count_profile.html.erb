@@ -1,0 +1,24 @@
+<div class="row">
+	<% if current_user != @user %>
+
+		<div class="col-md-4"> <p style="font-size:18px; "> <%= @user.statuses.count %></p>
+			<p style="font-size:18px; color:#9e9e9e">Posts</p></div>
+
+		<div class="col-md-4"> <p style="font-size:18px;"> <%= @user.friends.count %> </p>
+			<p style="font-size:18px; color:#9e9e9e">Friends</p></div>
+
+		<div class="col-md-4"> <p style="font-size:18px;"> <%= @user.followers.count %><br></p>
+			<p style="font-size:18px; color:#9e9e9e"> Followers</p></div>
+
+	<% else %>
+
+		<div class="col-md-4"> <p style="font-size:18px; "> <%= current_user.statuses.count %></p>
+			<p style="font-size:18px; color:#9e9e9e">Posts</p></div>
+
+		<div class="col-md-4"> <p style="font-size:18px;"> <%= current_user.friends.count %> </p>
+			<p style="font-size:18px; color:#9e9e9e">Friends</p></div>
+
+		<div class="col-md-4"> <p style="font-size:18px;"> <%= current_user.followers.count %><br></p>
+			<p style="font-size:18px; color:#9e9e9e"> Followers</p></div>
+	<% end %>
+</div>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Collagename:</strong>
+  <%= @educational_detail.collageName %>
+</p>
+
+<p>
+  <strong>Coursename:</strong>
+  <%= @educational_detail.courseName %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @educational_detail.location %>
+</p>
+
+<%= link_to 'Edit', edit_educational_detail_path(@educational_detail) %> |
+<%= link_to 'Back', educational_details_path %>

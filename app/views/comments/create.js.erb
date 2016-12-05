@@ -1,0 +1,12 @@
+$('#new_comment')[0].reset();
+$('.comments-old-<%= @status.id %>').prepend('<%= escape_javascript(render(@comment)) %>');
+$('#first_comment').remove();
+$('#new_comment').remove();
+
+
+<% publish_to @path do %>
+	<% if @comment.user != @status.user_id %>
+		$('#icon-noti').addClass('new');
+		$('#menu2').html("<%= j (render 'notifications/notification', statuses: @statuses) %>");
+	<% end %>
+<% end %>

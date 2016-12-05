@@ -1,0 +1,4 @@
+<% publish_to @path do %>
+	$('#icon-friend').addClass('new');
+	$('#menu').html("<%= j (render 'form' %>");
+<% end %>

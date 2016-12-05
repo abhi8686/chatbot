@@ -1,0 +1,33 @@
+
+<%= form_for(@educational_detail) do |f| %>
+  <% if @educational_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@educational_detail.errors.count, "error") %> prohibited this educational_detail from being saved:</h2>
+
+      <ul>
+      <% @educational_detail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h4>Educational Details</h4>
+  <div class="row">
+    <div class="col-xs-6 col-md-6"> <%= f.text_field :collageName , class: 'form-control', placeholder: "College Name"%></div>
+    <div class="col-xs-6 col-md-6"> <%= f.text_field :courseName , class: 'form-control', placeholder: "Couse Name"%></div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-6">
+      <%= f.text_field :location , class: 'form-control', placeholder: "Location"%>
+    </div>
+  </div>
+  <br>
+  <div class="actions">
+    <%= button_tag(type: "submit", class: "btn btn-info dropdown-toggle") do %>
+    Save Details  
+    <% end %>
+  </div>
+<% end %>
